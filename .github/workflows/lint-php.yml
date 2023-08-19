@@ -3,32 +3,28 @@ name: PHP Code Linting
 on:
   pull_request:
     branches:
-      - master
+      - main
   push:
     branches:
-      - master
+      - main
 
 jobs:
   lint-php:
     name: Parallel lint
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout the git repository
         uses: actions/checkout@v2
-      - name: PHP setup
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-      - name: Install composer packages
-        run: composer install --no-progress
-      - name: Check for PHP errors
-        run: composer lint:php
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+      - name: npm install
+        run: npm install
+      - name: Lint PHP
+        run: npm run lint:php
 
   phpcs_check:
     name: PHPCS check
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout the git repository
         uses: actions/checkout@v2
@@ -39,4 +35,4 @@ jobs:
       - name: Install composer packages
         run: composer install --no-progress
       - name: Check coding standards using PHPCS
-        run: composer lint:wpcs
+        run: composer php:lint

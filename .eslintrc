@@ -1,8 +1,72 @@
 {
-    "extends": [
-        "plugin:@wordpress/eslint-plugin/esnext"
-    ],
-    "env": {
-        "browser": true
-    }
+	"root": true,
+
+	"overrides": [
+		{
+			"env": {
+				"browser": true
+			},
+			"extends": ["standard"],
+			"files": ["*.cjs", "*.js", "*.mjs"],
+			"parserOptions": {
+				"ecmaVersion": "latest"
+			},
+			"rules": {
+				// ESLint basic rules
+				"spaced-comment": ["error", "always", {
+					// Add `#region` & `#endregion` to the marker list of StandardJS configuration to support the
+					// VSCode folding markers
+					"block": { "balanced": true, "markers": ["*package", "!", ",", ":", "::", "flow-include"], "exceptions": ["*"] },
+					"line": { "markers": ["*package", "!", "/", ",", "=", "#region", "#endregion"] }
+				}]
+			}
+		},
+		{
+			"extends": ["plugin:tailwindcss/recommended"],
+			"files": ["*.php"],
+			"parser": "@angular-eslint/template-parser",
+			"plugins": ["php-markup", "tailwindcss"],
+			"rules": {
+				"tailwindcss/migration-from-tailwind-2": "off",
+				"tailwindcss/no-custom-classname": [
+					"warn",
+					{
+						"config": "./tailwind/tailwind.config.js",
+						"whitelist": [
+							"(page|entry|comment)\\-([-a-z]*)",
+							"vcard"
+						]
+					}
+				]
+			},
+			"settings": {
+				"tailwindcss": {
+					"config": "./tailwind/tailwind.config.js",
+					"cssFiles": [
+						"./theme/**/*.css"
+					]
+				}
+			}
+		},
+		{
+			"env": {
+				"browser": true
+			},
+			"extends": ["standard-with-typescript"],
+			"files": ["*.ts"],
+			"parser": "@typescript-eslint/parser",
+			"parserOptions": {
+			  	"project": ["tsconfig.json"]
+			},
+			"rules": {
+				// ESLint basic rules
+				"spaced-comment": ["error", "always", {
+					// Add `#region` & `#endregion` to the marker list of StandardJS configuration to support the
+					// VSCode folding markers
+					"block": { "balanced": true, "markers": ["*package", "!", ",", ":", "::", "flow-include"], "exceptions": ["*"] },
+					"line": { "markers": ["*package", "!", "/", ",", "=", "#region", "#endregion"] }
+				}]
+			}
+		}
+	]
 }

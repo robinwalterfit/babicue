@@ -1,0 +1,33 @@
+# This file is for unifying the coding style for different editors and IDEs
+# https://editorconfig.org/
+
+# WordPress Coding Standards
+# https://make.wordpress.org/core/handbook/coding-standards/
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = tab
+
+# JavaScript/TypeScript specific settings
+[*.{cjs,js,json,jsx,mjs,ts,tsx}]
+indent_size = 2
+indent_style = space
+
+# Markdown specific configuration
+[*.md]
+trim_trailing_whitespace = false
+
+# Shell specific settings:
+[*.sh]
+indent_size = 4
+
+# YAML specific settings:
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2

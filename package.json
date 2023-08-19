@@ -1,46 +1,101 @@
 {
-  "name": "underscores",
-  "version": "1.0.0",
-  "description": "Hi. I'm a starter theme called _s, or underscores, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.",
-  "author": "Automattic Theme Team",
-  "license": "GPL-2.0-or-later",
-  "keywords": [
-    "WordPress",
-    "Theme"
-  ],
-  "homepage": "https://github.com/Automattic/_s#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Automattic/_s.git"
+  "author": {
+    "email": "hello@robinwalter.me",
+    "name": "Robin Walter",
+    "url": "https://robinwalter.me"
   },
   "bugs": {
-    "url": "https://github.com/Automattic/_s/issues"
+    "url": "https://github.com/robinwalterfit/babicue/issues"
   },
-  "devDependencies": {
-    "@wordpress/scripts": "^19.2.2",
-    "dir-archiver": "^1.1.1",
-    "node-sass": "^7.0.1",
-    "rtlcss": "^3.5.0"
+  "browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@wordpress/interactivity": "^2.1.0",
+    "alpinejs": "^3.12.3",
+    "moment": "^2.29.4"
   },
-  "rtlcssConfig": {
-    "options": {
-      "autoRename": false,
-      "autoRenameStrict": false,
-      "blacklist": {},
-      "clean": true,
-      "greedy": false,
-      "processUrls": false,
-      "stringMap": []
-    },
-    "plugins": [],
-    "map": false
+  "description": "A modern TailwindCSS based WordPress theme for schools",
+	"devDependencies": {
+    "@_tw/themejson": "^0.1.2",
+		"@angular-eslint/template-parser": "^16.1.0",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
+    "@commitlint/cz-commitlint": "^17.6.7",
+		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/container-queries": "^0.1.1",
+		"@tailwindcss/forms": "^0.5.4",
+		"@tailwindcss/typography": "^0.5.9",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "@wordpress/browserslist-config": "^5.16.0",
+    "@wordpress/env": "^8.6.0",
+		"adm-zip": "^0.5.10",
+		"archiver": "^5.3.1",
+    "caniuse-lite": "latest",
+    "commitizen": "^4.3.0",
+		"cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
+    "daisyui": "^3.5.1",
+		"esbuild": "^0.19.2",
+		"eslint": "^8.47.0",
+    "eslint-config-standard": "latest",
+    "eslint-config-standard-with-typescript": "latest",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-php-markup": "^6.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+		"eslint-plugin-tailwindcss": "^3.13.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "micromatch": "4.0.5",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.28",
+		"postcss-import-ext-glob": "^2.1.1",
+    "shell-quote": "^1.8.1",
+		"tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6"
+	},
+  "homepage": "https://robinwalterfit.github.io/babicue",
+  "license": "GPL-2.0-or-later",
+  "name": "babicue",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinwalterfit/babicue.git"
   },
-  "scripts": {
-    "watch": "node-sass sass/ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "compile:css": "node-sass sass/ -o ./ && stylelint '*.css' --fix || true && stylelint '*.css' --fix",
-    "compile:rtl": "rtlcss style.css style-rtl.css",
-    "lint:scss": "wp-scripts lint-style 'sass/**/*.scss'",
-    "lint:js": "wp-scripts lint-js 'js/*.js'",
-    "bundle": "dir-archiver --src . --dest ../_s.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map yarn.lock"
-  }
+	"scripts": {
+		"bundle": "run-s production zip",
+		"dev": "npm run development",
+		"development": "run-p development:**",
+		"development:esbuild": "esbuild ./javascript/script.ts ./javascript/block-editor.js ./javascript/tailwind-typography-classes.js --target=esnext --bundle --outdir=./theme/js --out-extension:.js=.min.js",
+		"development:tailwind:editor": "cross-env _TW_TARGET=editor tailwindcss --postcss -i ./tailwind/tailwind.css -c ./tailwind/tailwind.config.js -o ./theme/style-editor.css",
+		"development:tailwind:frontend": "tailwindcss --postcss -i ./tailwind/tailwind.css -c ./tailwind/tailwind.config.js -o ./theme/style.css",
+		"watch": "run-p watch:**",
+		"watch:esbuild": "npm run development:esbuild -- --watch",
+		"watch:tailwind:editor": "npm run development:tailwind:editor -- --watch",
+		"watch:tailwind:frontend": "npm run development:tailwind:frontend -- --watch",
+		"lint": "run-p lint:*",
+		"lint:eslint": "eslint javascript/ --config ./.eslintrc --ext cjs,js,mjs,ts --max-warnings=0",
+    "lint:php": "eslint theme/ --config ./.eslintrc --ext php --max-warnings=0",
+		"lint-fix": "run-p lint-fix:*",
+		"lint-fix:eslint": "eslint javascript/ --fix",
+		"lint-fix:php": "eslint theme/ --fix",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install",
+		"prod": "npm run production",
+		"production": "run-p production:**",
+		"production:esbuild": "npm run development:esbuild -- --minify",
+		"production:tailwind:editor": "cross-env NODE_ENV=production npm run development:tailwind:editor -- --minify",
+		"production:tailwind:frontend": "cross-env NODE_ENV=production npm run development:tailwind:frontend -- --minify",
+    "wp-env": "wp-env",
+		"zip": "node node_scripts/zip.js babicue"
+	},
+  "version": "1.0.0"
 }

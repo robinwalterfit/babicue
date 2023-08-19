@@ -1,0 +1,9 @@
+{
+	"eslint.workingDirectories": [{ "mode": "auto" }],
+	"php.format.codeStyle": "WordPress",
+  	"php.suggest.basic": true,
+	"tailwindCSS.includeLanguages": {
+		"typescript": "javascript",
+		"typescriptreact": "javascript"
+	}
+}

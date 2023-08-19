@@ -3,10 +3,10 @@ name: JS Code Linting
 on:
   pull_request:
     branches:
-      - master
+      - main
   push:
     branches:
-      - master
+      - main
 
 jobs:
   lint-js:
@@ -20,4 +20,4 @@ jobs:
       - name: npm install
         run: npm install
       - name: Lint JS
-        run: npm run lint:js
+        run: npm run lint:eslint

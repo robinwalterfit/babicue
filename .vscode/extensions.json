@@ -1,0 +1,19 @@
+{
+    "recommendations": [
+        "aaron-bond.better-comments",
+        "naumovs.color-highlight",
+        "bierner.color-info",
+        "devsense.composer-php-vscode",
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint",
+        "github.vscode-github-actions",
+        "lokalise.i18n-ally",
+        "devsense.phptools-vscode",
+        "devsense.profiler-php-vscode",
+        "getpsalm.psalm-vscode-plugin",
+        "standard.vscode-standard",
+        "bradlc.vscode-tailwindcss",
+        "wayou.vscode-todo-highlight",
+        "gruntfuggly.todo-tree"
+    ]
+}
